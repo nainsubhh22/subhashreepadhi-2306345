@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subhashree Padhi | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy: #0a0f2c; --accent: #4f9cf9; --gold: #f0c040; --white: #ffffff; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+    .bg-canvas { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .cloud-shape { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: drift linear infinite; }
+    .cloud-shape:nth-child(1) { width: 500px; height: 500px; background: var(--accent); top: -100px; left: -100px; animation-duration: 20s; }
+    .cloud-shape:nth-child(2) { width: 400px; height: 400px; background: #8b5cf6; top: 50%; right: -100px; animation-duration: 25s; animation-direction: reverse; }
+    .cloud-shape:nth-child(3) { width: 300px; height: 300px; background: var(--gold); bottom: -50px; left: 40%; animation-duration: 18s; }
+    @keyframes drift { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-20px) scale(1.05); } 66% { transform: translate(-20px,30px) scale(0.95); } }
+    .grid-overlay { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(rgba(79,156,249,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,156,249,0.04) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+    main { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    header { text-align: center; padding: 60px 0 40px; }
+    .photo-wrapper { display: flex; justify-content: center; margin-bottom: 28px; animation: fadeUp 0.8s ease both; }
+    .photo-ring { width: 130px; height: 130px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, var(--accent), var(--gold)); }
+    .photo-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; }
+    .photo-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .photo-placeholder { font-size: 48px; }
+    .badge { display: inline-block; background: rgba(79,156,249,0.15); border: 1px solid rgba(79,156,249,0.4); color: var(--accent); font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 100px; margin-bottom: 28px; animation: fadeUp 0.8s ease 0.1s both; }
+    .name { font-family: 'Playfair Display', serif; font-size: clamp(42px, 8vw, 80px); font-weight: 900; line-height: 1; letter-spacing: -2px; animation: fadeUp 0.8s ease 0.2s both; background: linear-gradient(135deg, #ffffff 40%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .roll { margin-top: 16px; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.5); letter-spacing: 4px; text-transform: uppercase; animation: fadeUp 0.8s ease 0.3s both; }
+    .roll span { color: var(--gold); font-weight: 500; }
+    .divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--gold)); margin: 32px auto; border-radius: 2px; }
+    .tagline { font-size: 16px; color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto; line-height: 1.7; animation: fadeUp 0.8s ease 0.4s both; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 24px; color: var(--white); position: relative; padding-left: 16px; }
+    .section-title::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 28px; background: linear-gradient(180deg, var(--accent), var(--gold)); border-radius: 4px; }
+    .education-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; margin-top: 48px; animation: fadeUp 0.8s ease 0.5s both; }
+    .edu-row { display: flex; align-items: flex-start; gap: 20px; }
+    .edu-icon { font-size: 36px; }
+    .edu-details h3 { font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .edu-details p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .edu-badge { display: inline-block; margin-top: 10px; background: rgba(79,156,249,0.15); border: 1px solid rgba(79,156,249,0.3); color: var(--accent); font-size: 12px; padding: 4px 12px; border-radius: 100px; }
+    .skills-section { margin-top: 48px; animation: fadeUp 0.8s ease 0.6s both; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+    .skill-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 100px; transition: all 0.3s ease; cursor: default; }
+    .skill-tag:hover { background: rgba(79,156,249,0.15); border-color: rgba(79,156,249,0.4); color: var(--accent); transform: translateY(-2px); }
+    .skill-tag.aws { background: rgba(255,153,0,0.1); border-color: rgba(255,153,0,0.3); color: #ff9900; }
+    .projects-section { margin-top: 48px; animation: fadeUp 0.8s ease 0.7s both; }
+    .project-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; margin-top: 16px; transition: transform 0.3s ease, border-color 0.3s ease; }
+    .project-card:hover { transform: translateY(-4px); border-color: rgba(79,156,249,0.4); }
+    .project-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .project-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(79,156,249,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .project-header h3 { font-size: 17px; font-weight: 600; color: var(--white); }
+    .project-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .project-tag { background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); color: #a78bfa; font-size: 11px; padding: 3px 10px; border-radius: 100px; }
+    .info-section { margin-top: 48px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; padding: 40px; animation: fadeUp 0.8s ease 0.9s both; }
+    .info-section h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 28px; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.35); font-weight: 500; }
+    .info-value { font-size: 14px; color: rgba(255,255,255,0.85); }
+    .info-value.highlight { color: var(--accent); font-weight: 500; }
+    .aws-badge { margin-top: 48px; display: flex; align-items: center; justify-content: center; gap: 12px; animation: fadeUp 0.8s ease 1s both; }
+    .aws-pill { background: linear-gradient(135deg, #ff9900, #ffb84d); color: #0a0f2c; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 20px; border-radius: 100px; }
+    .aws-text { font-size: 13px; color: rgba(255,255,255,0.4); }
+    footer { text-align: center; margin-top: 60px; padding-bottom: 40px; font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .particle { position: absolute; width: 2px; height: 2px; background: var(--accent); border-radius: 50%; opacity: 0; animation: float linear infinite; }
+    @keyframes float { 0% { opacity: 0; transform: translateY(100vh) scale(0); } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-10vh) scale(1.5); } }
+  </style>
+</head>
+<body>
+  <div class="bg-canvas">
+    <div class="cloud-shape"></div>
+    <div class="cloud-shape"></div>
+    <div class="cloud-shape"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  <div class="particles" id="particles"></div>
+  <main>
+    <header>
+      <div class="photo-wrapper">
+        <div class="photo-ring">
+          <div class="photo-inner">
+            <img src="photo.jpg" alt="Subhashree Padhi"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <span class="photo-placeholder" style="display:none;">👩‍💻</span>
+          </div>
+        </div>
+      </div>
+      <div class="badge">☁️ Cloud Computing Assignment</div>
+      <h1 class="name">Subhashree Padhi</h1>
+      <p class="roll">Roll Number: <span>2306345</span></p>
+      <div class="divider"></div>
+      <p class="tagline">B.Tech student at KIIT University passionate about cloud computing, data science, and building intelligent systems.</p>
+    </header>
+
+    <!-- EDUCATION -->
+    <div class="education-card">
+      <div class="section-title">Education</div>
+      <div class="edu-row">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-details">
+          <h3>Bachelor of Technology (B.Tech)</h3>
+          <p>KIIT University, Bhubaneswar</p>
+          <p>3rd Year · Computer Science & Engineering</p>
+          <span class="edu-badge">2022 – 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="skills-section">
+      <div class="section-title">Skills</div>
+      <div class="skills-grid">
+        <span class="skill-tag">🐍 Python</span>
+        <span class="skill-tag">🗄️ SQL</span>
+        <span class="skill-tag">⚙️ C++</span>
+        <span class="skill-tag">📊 Power BI</span>
+        <span class="skill-tag aws">☁️ AWS S3</span>
+        <span class="skill-tag aws">☁️ AWS Academy</span>
+        <span class="skill-tag">🌐 HTML/CSS</span>
+        <span class="skill-tag">🤖 Machine Learning</span>
+        <span class="skill-tag">📈 Data Analysis</span>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="projects-section">
+      <div class="section-title">Projects</div>
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🔍</div>
+          <h3>Fake News Detection</h3>
+        </div>
+        <p>A machine learning based system that automatically detects and classifies fake news articles. The model analyzes text patterns, linguistic features, and content credibility to distinguish between real and fabricated news with high accuracy.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Machine Learning</span>
+          <span class="project-tag">NLP</span>
+          <span class="project-tag">Data Science</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">☁️</div>
+          <h3>Static Website on AWS S3</h3>
+        </div>
+        <p>Deployed a fully responsive personal portfolio website on Amazon S3 using static website hosting. Configured bucket policies, public access settings, and endpoint routing for seamless cloud deployment.</p>
+        <div class="project-tags">
+          <span class="project-tag">AWS S3</span>
+          <span class="project-tag">Cloud Computing</span>
+          <span class="project-tag">HTML/CSS</span>
+          <span class="project-tag">Static Hosting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDENT DETAILS -->
+    <div class="info-section">
+      <h2>Student Details</h2>
+      <div class="info-row"><span class="info-label">Name</span><span class="info-value">Subhashree Padhi</span></div>
+      <div class="info-row"><span class="info-label">Roll Number</span><span class="info-value highlight">2306345</span></div>
+      <div class="info-row"><span class="info-label">Email</span><span class="info-value">2306345@kiit.ac.in</span></div>
+      <div class="info-row"><span class="info-label">Institution</span><span class="info-value">KIIT University</span></div>
+      <div class="info-row"><span class="info-label">Degree</span><span class="info-value">B.Tech CSE · 3rd Year</span></div>
+      <div class="info-row"><span class="info-label">Subject</span><span class="info-value">Cloud Computing</span></div>
+      <div class="info-row"><span class="info-label">Platform</span><span class="info-value highlight">Amazon S3 Static Hosting</span></div>
+    </div>
+
+    <div class="aws-badge">
+      <span class="aws-pill">AWS Academy</span>
+      <span class="aws-text">Deployed on Amazon S3 · Static Website Hosting</span>
+    </div>
+    <footer>© 2025 Subhashree Padhi · Roll No. 2306345 · KIIT University</footer>
+  </main>
+  <script>
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+      container.appendChild(p);
+    }
+  </script>
+</body>
+</html>
